@@ -5,7 +5,7 @@ from datetime import datetime
 import constants
 
 required_format = "{}:{}".format(
-    constants.TIME_FORMATS['hours'], constants.TIME_FORMATS['minutes']
+    constants.TIME_FORMATS['hour'], constants.TIME_FORMATS['minute']
 )
 
 

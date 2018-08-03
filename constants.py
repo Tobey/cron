@@ -1,8 +1,8 @@
 RELATIVE_TIME = '*'
 
 TIME_FORMATS = {
-    'hours': '%H',
-    'minutes': '%M',
+    'hour': '%H',
+    'minute': '%M',
 }
 
 DAY_FORMATS = {

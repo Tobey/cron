@@ -27,10 +27,10 @@ def validate_time(str_time, format, current_line, field_type='time'):
 def validate_line_content(current_line, minute, hour, file_path):
 
     if minute != constants.RELATIVE_TIME:
-        minute = validate_time(minute, constants.TIME_FORMATS['minutes'], current_line, field_type='minute')
+        minute = validate_time(minute, constants.TIME_FORMATS['minute'], current_line, field_type='minute')
 
     if hour != constants.RELATIVE_TIME:
-        hour = validate_time(hour, constants.TIME_FORMATS['hours'], current_line, field_type='hour')
+        hour = validate_time(hour, constants.TIME_FORMATS['hour'], current_line, field_type='hour')
 
     return minute, hour, file_path
 

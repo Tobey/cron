@@ -20,10 +20,10 @@ def print_next_run(simulated_time, minute, hour, file_path):
     output_template = '{}:{:02} {} - {}\n'
 
     cron_time = get_next_cron_time(simulated_time, cron_hour=hour, cron_minute=minute)
-    outptut = output_template.format(
+    output = output_template.format(
         cron_time.hour, cron_time.minute, constants.DAY_FORMATS[cron_time.day], file_path
     )
-    sys.stdout.write(outptut)
+    sys.stdout.write(output)
 
 
 if __name__ == '__main__':

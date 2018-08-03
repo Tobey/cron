@@ -8,7 +8,7 @@ import constants
 
 def _get_next_cron_time(current_time, cron_time, fixed_hour, fixed_min):
     """helper to calculate the next possible time"""
-    current_day = cron_time
+    reference_time = cron_time
 
     cron_delta = cron_time - current_time
     if cron_delta.total_seconds() >= 0:
@@ -27,15 +27,14 @@ def _get_next_cron_time(current_time, cron_time, fixed_hour, fixed_min):
         # Attempt to sequentially check next cron time depending on input
 
         for hour in range(min_hour, max_hour):
+            impossible_time_frame = reference_time.day == current_time.day and hour < current_time.hour
 
-            impossible_time_frame = current_day.day == current_time.day and hour < current_time.hour
             # no need to check every minute if the hour is behind the current time
             if not impossible_time_frame:
-
                 min_minute = cron_time.minute if fixed_min else 0
 
                 for minute in range(min_minute, max_minute):
-                    cron_time_str = '{:02}:{:02}:{:02}'.format(current_day.day, hour, minute)
+                    cron_time_str = '{:02}:{:02}:{:02}'.format(reference_time.day, hour, minute)
                     new_cron_time = datetime.strptime(cron_time_str, time_format)
                     cron_delta = new_cron_time - current_time
                     if cron_delta.total_seconds() >= 0:
@@ -44,10 +43,11 @@ def _get_next_cron_time(current_time, cron_time, fixed_hour, fixed_min):
                 else:
                     min_minute = cron_time.minute if fixed_min else 0
                     continue
+
                 break
 
         min_hour = cron_time.hour if fixed_hour else 0
-        current_day = current_time + timedelta(days=1)
+        reference_time = current_time + timedelta(days=1)
 
     return new_cron_time
 
@@ -63,8 +63,8 @@ def get_next_cron_time(current_time, cron_hour='*', cron_minute='*'):
         fixed_min = False
 
     cron_time_str = '{}:{}'.format(
-        cron_hour.strftime(constants.TIME_FORMATS['hours']),
-        cron_minute.strftime(constants.TIME_FORMATS['minutes'])
+        cron_hour.strftime(constants.TIME_FORMATS['hour']),
+        cron_minute.strftime(constants.TIME_FORMATS['minute'])
     )
     cron_time = datetime.strptime(cron_time_str, required_format)
 
