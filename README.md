@@ -26,6 +26,6 @@ To run
 Using `python 2.7+, 3.0+`
 
 ```
-python parser.py HH:MM < config
+python parser.py HH:MM < config.txt
 
 ``` 
